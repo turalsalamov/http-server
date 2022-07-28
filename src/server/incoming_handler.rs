@@ -14,15 +14,13 @@ pub fn accepting_incoming(success_argument: ServerArgument) {
     }
     
 }
-
-
 // Handling the incoming stream
 fn handling_the_stream(mut stream: TcpStream, address: SocketAddr) {
     let mut buffer = [0; 1024];
     stream.write("Hello World!".as_bytes()).ok().expect("There was an error in writing the message");
     stream.read(&mut buffer).unwrap();
     let data = String::from_utf8_lossy(&buffer[..]);
-    println!("{}", data);
+    println!("{} ===", data);
     let vec: Vec<&str> = data.split("\r\n").collect();
 
     /*
@@ -30,6 +28,7 @@ fn handling_the_stream(mut stream: TcpStream, address: SocketAddr) {
         This line is splitted with whitespace splitting and collected to a vector
         The first_line variable is also splitted in order to identify aformentioned fields
     */ 
+
     let first_line: Vec<&str> = vec[0].split_whitespace().collect();
 
     /*
@@ -37,23 +36,18 @@ fn handling_the_stream(mut stream: TcpStream, address: SocketAddr) {
         structered data structure.
     */
     let mut header_hashmap: HashMap<&str, &str> = HashMap::new();
-    for i in 1..vec.capacity() - 3 {
+    for i in 1..vec.len() - 1 {
+        if vec[i] == "" {
+            continue;
+        }
         let line: Vec<&str> = vec[i].split(':').collect();
         let key = line[0];
-        println!("{}", key);
-        // let vec_for_value: Vec<&str> = line[1].split_whitespace().collect();
-        // let value = vec_for_value[0];
-        // header_hashmap.insert(key, value);
-
+        let value = match line[1].split_whitespace().next() {
+            Some(value) => value,
+            None => "Non value"
+        };
+        header_hashmap.insert(key, value);
     }
-
-
-    // for element in first_line {
-    //     print!("{} ", element);
-    // }
-    // println!();
-
-
 }
 
 
