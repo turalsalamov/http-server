@@ -6,3 +6,16 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+futures = "0.3"
+regex = "1"
+
+[dependencies.mongodb]
+mongodb = "2.3.0"
+default-features = false
+features = ["async-std-runtime"]
+
+
+
+[dependencies.pyo3]
+pyo3 = "0.16.5"
+features = ["auto-initialize"]

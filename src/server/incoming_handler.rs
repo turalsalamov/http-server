@@ -1,6 +1,6 @@
-use std::collections::{HashSet, HashMap};
-use std::net::{TcpStream, SocketAddr};
-use std::io:: {Write, Read, stdout };
+use std::collections::HashMap;
+use std::net::{ TcpStream, SocketAddr };
+use std::io:: { Write, Read };
 use crate::server::server_arguments::ServerArgument;
 
 // Accepting the requests
@@ -53,5 +53,5 @@ fn handling_the_stream(mut stream: TcpStream, address: SocketAddr) {
 
 // Error handling for test cases
 fn error_handling() {
-    println!("There is an error")
+    println!("There is an error in acceping the incoming requests!");
 }
